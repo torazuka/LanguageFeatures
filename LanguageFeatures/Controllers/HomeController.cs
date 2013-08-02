@@ -101,9 +101,7 @@ namespace LanguageFeatures.Controllers
                 }
             };
 
-            Func<Product, bool> categoryFilter = delegate(Product prod) {
-                return prod.Category == "Soccer";
-            };
+            Func<Product, bool> categoryFilter = prod => prod.Category == "Soccer";
 
             decimal total = 0;
 
