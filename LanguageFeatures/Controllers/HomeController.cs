@@ -141,21 +141,17 @@ namespace LanguageFeatures.Controllers
                 new Product{Name = "Corner flag", Price = 34.95M}
             };
 
-            var foundProducts = from match in products
-                                orderby match.Price descending
-                                select new
-                                {
-                                    match.Name,
-                                    match.Price
-                                };
+            // IEnumerable<T>を返すのでメソッドチェーンが書ける
+            var foundProducts = products.OrderByDescending(e => e.Price)
+                .Take(3)
+                .Select(e => new {
+                e.Name,
+                e.Price
+                });
 
-            int count = 0;
             StringBuilder result = new StringBuilder();
             foreach(var p in foundProducts) {
                 result.AppendFormat("Price: {0} ", p.Price);
-                if (++count == 3) { // LINQで「条件に合致するものを3個だけ取得」することはできない
-                    break;
-                }
             }
 
             return View("Result", (object)result.ToString());
