@@ -141,16 +141,21 @@ namespace LanguageFeatures.Controllers
                 new Product{Name = "Corner flag", Price = 34.95M}
             };
 
-            Product[] foundProducts = new Product[3];
+            var foundProducts = from match in products
+                                orderby match.Price descending
+                                select new
+                                {
+                                    match.Name,
+                                    match.Price
+                                };
 
-            Array.Sort(products, (item1, item2) => {
-                return Comparer<decimal>.Default.Compare(item1.Price, item2.Price);
-            });
-            Array.Copy(products, foundProducts, 3);
-
+            int count = 0;
             StringBuilder result = new StringBuilder();
-            foreach(Product p in foundProducts) {
+            foreach(var p in foundProducts) {
                 result.AppendFormat("Price: {0} ", p.Price);
+                if (++count == 3) { // LINQで「条件に合致するものを3個だけ取得」することはできない
+                    break;
+                }
             }
 
             return View("Result", (object)result.ToString());
