@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -116,6 +117,20 @@ namespace LanguageFeatures.Controllers
             string category = myProduct.Category; // 変数myProductはProduct型
             string description = myProduct.Description;
             return View("Result", (object)String.Format("Product.Category: {0}, Description: {1}", category, description));
+        }
+
+        public ViewResult CreateAnonArray() {
+            var oddsAndEnds = new[]{
+            new {Name = "MVC", Category = "Pattern"},
+            new {Name = "Hat", Category = "Clothing"}, 
+            new {Name = "Apple", Category = "Fruit"}
+            };
+
+            StringBuilder result = new StringBuilder();
+            foreach (var item in oddsAndEnds) {
+                result.Append(item.Name).Append(" ");
+            }
+            return View("Result", (object)result.ToString());
         }
     }
 }
