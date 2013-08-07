@@ -109,5 +109,13 @@ namespace LanguageFeatures.Controllers
 
             return View("Result", (object)String.Format("Total: {0}", total));
         }
+
+        public ViewResult UseAutomaticTypeInference()
+        {
+            var myProduct = new Product{Name = "Kayak", Category = "Watersports", Price = 275M};
+            string category = myProduct.Category; // 変数myProductはProduct型
+            string description = myProduct.Description;
+            return View("Result", (object)String.Format("Product.Category: {0}, Description: {1}", category, description));
+        }
     }
 }
