@@ -149,6 +149,10 @@ namespace LanguageFeatures.Controllers
                 e.Price
                 });
 
+            // selectする母集団に値を追加する
+            // 結果出力のタイミングで評価されるので、結果に反映される
+            products[2] = new Product{ Name = "Staduim", Price = 79600M };
+
             StringBuilder result = new StringBuilder();
             foreach(var p in foundProducts) {
                 result.AppendFormat("Price: {0} ", p.Price);
