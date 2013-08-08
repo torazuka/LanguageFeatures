@@ -9,16 +9,14 @@ namespace LanguageFeatures.Models
 {
     public class MyAsyncMethods
     {
-        public static Task<long?> GetPageLength()
+        public async Task<long?> GetPageLength()
         {
             HttpClient client = new HttpClient();
-            var httpTask = client.GetAsync("http://appres.com/");
+            var httpMessage = await client.GetAsync("http://appres.com/");
 
             // HTTPリクエストが完了するまで他のことができる
 
-            return httpTask.ContinueWith((Task<HttpResponseMessage> antecedent) => {
-                return antecedent.Result.Content.Headers.ContentLength;
-            });
+            return httpMessage.Content.Headers.ContentLength;
         }
     }
 }
